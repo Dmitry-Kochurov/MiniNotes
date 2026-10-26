@@ -1,0 +1,16 @@
+services:
+    laravel.test:
+        # Используем образ, где уже есть и PHP 8.4, и встроенный Composer
+        image: 'composer:latest'
+        ports:
+            - '80:80'
+        volumes:
+            - '.:/var/www/html'
+        working_dir: /var/www/html
+        # Передаем управление нашему скрипту автоматического развертывания
+        entrypoint: ["/bin/sh", "./docker-entrypoint.sh"]
+        networks:
+            - notes-network
+networks:
+    notes-network:
+        driver: bridge
